@@ -1,24 +1,23 @@
 from django.contrib import admin
-from django.utils.translation import gettext_lazy as _
+
 from .models import Question, Choice
 
-class ChoiceInline(admin.TabularInline):  
-    model = Choice  
-    extra = 2  
+# class ChoiceInline(admin.StackedInline): # Layout 1
+class ChoiceInline(admin.TabularInline): #Layout 2
+    model = Choice
+    extra = 3
 
-class QuestionAdmin(admin.ModelAdmin):  
-    list_display = ('question_text', 'total_votes','has_votes')  
+# class QuestionAdmin(admin.ModelAdmin):
+#     fields = ["pub_date", "question_text"] #Ou Ordenar campos - Forms
 
-    def total_votes(self, obj):
-        return obj.total_votes()
-    
-    total_votes.short_description = _("Total de Votos")  
-
-    def has_votes(self, obj):
-        return "Sim" if obj.has_votes() else "Não"
-        # return obj.has_votes()
-    
-    has_votes.short_description = _("Contém votos?")
+class QuestionAdmin(admin.ModelAdmin):
+    fieldsets = [ #Ou Classificar em Grupos - Forms
+        (None, {"fields": ["question_text"]}),
+        ("Date information", {"fields": ["pub_date"], "classes": ["collapse"]}), 
+    ]
+    inlines = [ChoiceInline] #Relacionamento
+    list_display = ["question_text", "pub_date", "was_published_recently"] #Ordem das colunas
+    list_filter = ["pub_date"] #Barra de filtro
 
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(Choice)
+# admin.site.register(Choice)

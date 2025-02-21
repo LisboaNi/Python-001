@@ -1,2 +1,2 @@
-# Pyhton-001
+# Python-001
 Primeiro programa em Python / Django;

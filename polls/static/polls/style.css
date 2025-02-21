@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0px;
+    color: #333;
+}
+
+header {
+    background-color: #01012f;
+    color: white;
+    padding: 20px;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    display: inline-block;
+}
+
+.menu a {
+    color: #01012f;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin: 0 10px;
+}
+
+main {
+    padding: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+li a {
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+li a:hover {
+    text-decoration: underline;
+}
+
+/* Mensagem de sem perguntas */
+p {
+    font-size: 1.2rem;
+    color: #555;
+}

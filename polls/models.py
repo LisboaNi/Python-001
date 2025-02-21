@@ -1,27 +1,30 @@
 import datetime
-
+from django.contrib import admin
 from django.db import models
 from django.utils import timezone
+
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
-    def __str__(self):
-        return self.question_text
-    
-    def total_votes(self):
-        return self.choice_set.aggregate(models.Sum('votes'))['votes__sum'] or 0
+
+    @admin.display(
+        boolean=True,
+        ordering="pub_date", #pub_date é uma instância da classe DateTimeField, o Django consegue deduzir que os filtros apropriados
+        description="Published recently?",
+    )
 
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
     
-    def has_votes(self):
-        return self.choice_set.filter(votes__gt=0).exists()
-
+    def __str__(self):
+        return self.question_text
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+
     def __str__(self):
         return self.choice_text
